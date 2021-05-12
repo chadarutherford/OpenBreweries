@@ -13,13 +13,13 @@ class BreweryListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTableView()
+        configureUI()
         modelController.fetchBreweries { result in
             switch result {
             case .success(let breweries):
                 self.modelController.breweries = breweries
                 self.tableView.reloadData()
-            case .failure(let error):
+            case .failure:
                 let alert = UIAlertController(title: "Error", message: "Error fetching breweries", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default))
                 self.present(alert, animated: true)
@@ -27,7 +27,9 @@ class BreweryListViewController: UITableViewController {
         }
     }
 
-    private func configureTableView() {
+    private func configureUI() {
+        title = "Breweries"
+        navigationController?.navigationBar.prefersLargeTitles = true
         tableView.register(BreweryCell.self, forCellReuseIdentifier: BreweryCell.reuseIdentifier)
     }
 
@@ -39,5 +41,9 @@ class BreweryListViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: BreweryCell.reuseIdentifier, for: indexPath) as? BreweryCell else { return UITableViewCell() }
         cell.brewery = modelController.breweries[indexPath.row]
         return cell
+    }
+
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
     }
 }
