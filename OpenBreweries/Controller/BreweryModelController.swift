@@ -22,7 +22,7 @@ class BreweryModelController {
                 return
             }
 
-            guard let response = response as? HTTPURLResponse, !self.expectedResponseCodes.contains(response.statusCode) else {
+            guard let response = response as? HTTPURLResponse, self.expectedResponseCodes.contains(response.statusCode) else {
                 DispatchQueue.main.async {
                     let error = NSError(domain: "Response Error", code: (response as! HTTPURLResponse).statusCode, userInfo: [:])
                     completion(.failure(error))
@@ -44,8 +44,9 @@ class BreweryModelController {
                 DispatchQueue.main.async {
                     completion(.success(results.breweries))
                 }
-            } catch {
+            } catch let error as NSError {
                 DispatchQueue.main.async {
+                    print("Failed with decode error: \(error.userInfo)")
                     completion(.failure(error))
                 }
             }
