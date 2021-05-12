@@ -40,9 +40,9 @@ class BreweryModelController {
 
             let decoder = JSONDecoder()
             do {
-                let results = try decoder.decode(BreweryResults.self, from: data)
+                let results = try decoder.decode([Brewery].self, from: data)
                 DispatchQueue.main.async {
-                    completion(.success(results.breweries))
+                    completion(.success(results))
                 }
             } catch let error as NSError {
                 DispatchQueue.main.async {

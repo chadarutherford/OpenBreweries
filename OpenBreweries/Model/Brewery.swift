@@ -35,7 +35,3 @@ struct Brewery: Codable {
         state = try container.decode(String.self, forKey: .state)
     }
 }
-
-struct BreweryResults: Codable {
-    let breweries: [Brewery]
-}

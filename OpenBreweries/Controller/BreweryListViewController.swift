@@ -19,7 +19,7 @@ class BreweryListViewController: UITableViewController {
             case .success(let breweries):
                 self.modelController.breweries = breweries
                 self.tableView.reloadData()
-            case .failure(let error):
+            case .failure:
                 let alert = UIAlertController(title: "Error", message: "Error fetching breweries", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default))
                 self.present(alert, animated: true)
