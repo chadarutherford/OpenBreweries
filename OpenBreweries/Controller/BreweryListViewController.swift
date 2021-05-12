@@ -13,7 +13,7 @@ class BreweryListViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTableView()
+        configureUI()
         modelController.fetchBreweries { result in
             switch result {
             case .success(let breweries):
@@ -27,7 +27,9 @@ class BreweryListViewController: UITableViewController {
         }
     }
 
-    private func configureTableView() {
+    private func configureUI() {
+        title = "Breweries"
+        navigationController?.navigationBar.prefersLargeTitles = true
         tableView.register(BreweryCell.self, forCellReuseIdentifier: BreweryCell.reuseIdentifier)
     }
 
