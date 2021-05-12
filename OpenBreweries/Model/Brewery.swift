@@ -16,7 +16,20 @@ struct Brewery: Codable {
     let state: String
 
     var address: String {
-        return "\(street ?? "") \(address2 ?? "") \(address3 ?? "") \(city), \(state)"
+        var addressString = ""
+        if let streetAddress = street {
+            addressString += "\(streetAddress) "
+        }
+        if let addressSecondary = address2 {
+            addressString += " \(addressSecondary) "
+        }
+        if let addressTertiary = address3 {
+            addressString += "\(addressTertiary) "
+        }
+
+        addressString += "\(city), \(state)"
+
+        return addressString
     }
 
     enum BreweryKeys: String, CodingKey {
